@@ -55,7 +55,7 @@ namespace GameProgram1.DAO
             }
             read.Close();
             //插入数据
-            string sqlInsert = string.Format("insert into userdata(email,username,password,diamonds,support_role_id,ban_flag,new_checkpoint) values('{0}','{1}','{2}',3000,null,false,1);",email,username,password);
+            string sqlInsert = string.Format("insert into userdata(email,username,password,diamonds,support_role_id,ban_flag,new_checkpoint) values('{0}','{1}','{2}',3000,1,false,1);",email,username,password);
             Console.WriteLine(sqlInsert);
             comd = new MySqlCommand(sqlInsert, mysqlCon);
             try

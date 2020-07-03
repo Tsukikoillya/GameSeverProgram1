@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameProgram1.DAO;
 using SocketGameProtocol1;
 
 namespace GameProgram1.Controller
 {
     class UserController:BaseController
     {
+        private UserData userData;
         public UserController()
         {
             requestCode = RequestCode.User;
+            userData = new UserData();
         }
         /// <summary>
         /// 注册

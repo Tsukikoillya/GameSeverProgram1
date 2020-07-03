@@ -66,6 +66,7 @@ namespace GameProgram1.DAO
             {
                 //获取用户id
                 string uid = pack.Loginpack.Uid;
+                
                 //转换好友Type
                 int friendType = TransformFriendType(pack.Friendcode);
                 //清空一下pack里面的好友内容
@@ -107,23 +108,36 @@ namespace GameProgram1.DAO
                         }
                         string checkId = i.ToString();
                         //已经当朋友的就不用管了
-                        if(j<count&& i.ToString() == ids[j])
+                        if (j < count && i.ToString() == ids[j])
                         {
                             j++;
                             continue;
                         }
-                        string sqlReadC = string.Format("select username from userdata where uid = '{0}'", checkId);
-                        comd = new MySqlCommand(sqlReadC, mysqlCon);
+                        string sqlReadIsnull = string.Format("SELECT IFNULL((select username from userdata where uid = {0}),0)", checkId);
+                        comd = new MySqlCommand(sqlReadIsnull, mysqlCon);
                         read = comd.ExecuteReader();
                         read.Read();
+                        if (read[0].ToString().Equals("0"))
+                        {
+                            read.Close();
+                            continue;
+                        }
+                        //Console.WriteLine(read[0].ToString());
+                        //string sqlReadC = string.Format("select username from userdata where uid = '{0}'", checkId);
+                        //comd = new MySqlCommand(sqlReadC, mysqlCon);
+                        //read = comd.ExecuteReader();
+                        //read.Read();
                         SocketGameProtocol1.FriendData data = new SocketGameProtocol1.FriendData();
                         data.UID = checkId;
-                        data.Kickname = read["username"].ToString();
+                        //data.Kickname = read["username"].ToString();
+                        data.Kickname = read[0].ToString();
                         pack.Frienddata.Add(data);
                         read.Close();
                     }
                     pack.Returncode = ReturnCode.Succeed;
                     return pack;
+
+
                 }
                 else
                 {

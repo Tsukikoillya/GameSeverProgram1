@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using GameProgram1.DAO;
 using SocketGameProtocol1;
 using GameProgram1.Tool;
+using GameProgram1.Controller;
+
 namespace GameProgram1
 {
     class Client
@@ -14,6 +16,7 @@ namespace GameProgram1
         private Socket socket;
         private Message message;
         private EmailCode emailCode;
+        //private UserController userController;
         private UserData userData;
         private CodeData codeData;
         private DAO.CharacterData roleData;
@@ -21,6 +24,7 @@ namespace GameProgram1
         private DAO.FriendData friendData;
         private DAO.CheckpointData checkpointData;
         private Server server;
+
         public UserData GetUserData
         {
             get{ return userData; }
@@ -50,6 +54,7 @@ namespace GameProgram1
             message = new Message();
             userData = new UserData();
             emailCode = new EmailCode();
+            //userController = new UserController();
             codeData = new CodeData();
             roleData = new DAO.CharacterData();
             itemData = new DAO.ItemData();
